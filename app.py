@@ -18,6 +18,7 @@ def recommend_movies(movie):
     return recommended_movie_names,recommended_movie_posters
 
 def fetch_poster(movie_id):
+    time.sleep(2)
     url = "https://api.themoviedb.org/3/movie/{0}?api_key=e8c69a1872920bf163dcecdd98c19d46&language=en-US".format(movie_id)
     headers = {"accept": "application/json"}
     print(url)
@@ -42,7 +43,7 @@ selected_movie_name = st.selectbox(
 if st.button("Recommend", type="primary"):
     time.sleep(10)
     recommended_movie_names,recommended_movie_posters = recommend_movies(selected_movie_name)
-    col1, col2, col3, col4, col5 = st.beta_columns(5)
+    col1, col2, col3, col4, col5 = st.columns(5)
     with col1:
         st.text(recommended_movie_names[0])
         st.image(recommended_movie_posters[0])

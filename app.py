@@ -18,8 +18,8 @@ def recommend_movies(movie):
     return recommended_movie_names,recommended_movie_posters
 
 def fetch_poster(movie_id):
-    #url = "https://api.themoviedb.org/3/movie/{0}?api_key=e8c69a1872920bf163dcecdd98c19d46&language=en-US".format(movie_id)
-    url = "https://api.themoviedb.org/11/movie/movie_id?language=en-US"
+    url = "https://api.themoviedb.org/3/movie/{0}?api_key=e8c69a1872920bf163dcecdd98c19d46&language=en-US".format(movie_id)
+    #url = "https://api.themoviedb.org/11/movie/movie_id?language=en-US"
     headers = {"accept": "application/json"}
     print(url)
     data = requests.get(url, headers=headers)

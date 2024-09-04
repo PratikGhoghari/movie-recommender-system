@@ -2,16 +2,16 @@ import streamlit as st
 import pickle
 import pandas as pd
 import requests
+import time
 
 def recommend_movies(movie):
-    index = movies_df[movies_df['title'] == movie].index[0]
-    recommended_movies_list = sorted(list(enumerate(similarity[index])), reverse=True, key=lambda x: x[1])[1:6]
+    movie_index = movies_df[movies_df['title'] == movie].index[0]
+    distances = similarity[movie_index]
+    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
     recommended_movie_names = []
     recommended_movie_posters = []
-    for i in recommended_movies_list:
-        print(i)
-        movie_id = i[0]
-        print(movie_id)
+    for i in movies_list:
+        movie_id = movies_df.iloc[i[0]].movie_id
         recommended_movie_posters.append(fetch_poster(movie_id))
         recommended_movie_names.append(movies_df.iloc[i[0]].title)
 
@@ -19,7 +19,6 @@ def recommend_movies(movie):
 
 def fetch_poster(movie_id):
     url = "https://api.themoviedb.org/3/movie/{0}?api_key=e8c69a1872920bf163dcecdd98c19d46&language=en-US".format(movie_id)
-    #url = "https://api.themoviedb.org/11/movie/movie_id?language=en-US"
     headers = {"accept": "application/json"}
     print(url)
     data = requests.get(url, headers=headers)
@@ -41,6 +40,7 @@ selected_movie_name = st.selectbox(
 )
 
 if st.button("Recommend", type="primary"):
+    time.sleep(10)
     recommended_movie_names,recommended_movie_posters = recommend_movies(selected_movie_name)
     col1, col2, col3, col4, col5 = st.beta_columns(5)
     with col1:

@@ -41,7 +41,7 @@ selected_movie_name = st.selectbox(
 )
 
 if st.button("Recommend", type="primary"):
-    time.sleep(10)
+    time.sleep(5)
     recommended_movie_names,recommended_movie_posters = recommend_movies(selected_movie_name)
     col1, col2, col3, col4, col5 = st.columns(5)
     with col1:

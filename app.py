@@ -4,6 +4,8 @@ import pandas as pd
 import requests
 import time
 
+api_key = st.secrets["api_key"]
+
 def recommend_movies(movie):
     movie_index = movies_df[movies_df['title'] == movie].index[0]
     distances = similarity[movie_index]
@@ -18,8 +20,7 @@ def recommend_movies(movie):
     return recommended_movie_names,recommended_movie_posters
 
 def fetch_poster(movie_id):
-    time.sleep(2)
-    url = "https://api.themoviedb.org/3/movie/{0}?api_key=e8c69a1872920bf163dcecdd98c19d46&language=en-US".format(movie_id)
+    url = "https://api.themoviedb.org/3/movie/{0}?api_key={1}&language=en-US".format(movie_id, api_key)
     headers = {"accept": "application/json"}
     print(url)
     data = requests.get(url, headers=headers)

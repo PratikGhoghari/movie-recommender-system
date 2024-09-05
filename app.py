@@ -59,5 +59,5 @@ if st.button("Recommend", type="primary"):
         st.image(recommended_movie_posters[3])
     col = st.columns(1)
     with col:
-        st.text(recommended_movie_names[5])
-        st.image(recommended_movie_posters[5])
+        st.text(recommended_movie_names[4])
+        st.image(recommended_movie_posters[4])

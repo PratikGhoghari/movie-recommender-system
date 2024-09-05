@@ -9,7 +9,7 @@ api_key = st.secrets["api_key"]
 def recommend_movies(movie):
     movie_index = movies_df[movies_df['title'] == movie].index[0]
     distances = similarity[movie_index]
-    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
+    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:9]
     recommended_movie_names = []
     recommended_movie_posters = []
     for i in movies_list:
@@ -44,7 +44,7 @@ selected_movie_name = st.selectbox(
 if st.button("Recommend", type="primary"):
     time.sleep(2)
     recommended_movie_names,recommended_movie_posters = recommend_movies(selected_movie_name)
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
     with col1:
         st.text(recommended_movie_names[0])
         st.image(recommended_movie_posters[0])
@@ -57,7 +57,15 @@ if st.button("Recommend", type="primary"):
     with col4:
         st.text(recommended_movie_names[3])
         st.image(recommended_movie_posters[3])
-    col = st.columns(1)
-    with col:
+    with col5:
         st.text(recommended_movie_names[4])
         st.image(recommended_movie_posters[4])
+    with col6:
+        st.text(recommended_movie_names[5])
+        st.image(recommended_movie_posters[5])
+    with col7:
+        st.text(recommended_movie_names[6])
+        st.image(recommended_movie_posters[6])
+    with col8:
+        st.text(recommended_movie_names[7])
+        st.image(recommended_movie_posters[7])

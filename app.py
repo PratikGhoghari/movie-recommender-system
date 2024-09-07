@@ -33,7 +33,7 @@ def recommend_movies(movie):
     decompress_lzma(input_lzma="compressed_similarity_scores.pkl.gz", output_file="decompressed_similarity_scores.pkl")
     similarity = read_pickle(file_path="decompressed_similarity_scores.pkl")
     distances = similarity[movie_index]
-    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:6]
+    movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:9]
     recommended_movie_names = []
     recommended_movie_posters = []
     for i in movies_list:
@@ -80,7 +80,6 @@ if st.button("Recommend", type="primary"):
     with col4:
         st.text(recommended_movie_names[3])
         st.image(recommended_movie_posters[3])
-'''
     with col5:
         st.text(recommended_movie_names[4])
         st.image(recommended_movie_posters[4])
@@ -93,4 +92,3 @@ if st.button("Recommend", type="primary"):
     with col8:
         st.text(recommended_movie_names[7])
         st.image(recommended_movie_posters[7])
-'''

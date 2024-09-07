@@ -3,11 +3,35 @@ import pickle
 import pandas as pd
 import requests
 import time
+import lzma
+import shutil
+import os
 
 api_key = st.secrets["api_key"]
 
+
+def decompress_lzma(input_lzma, output_file):
+    # Check if the decompressed file already exists
+    if os.path.exists(output_file):
+        print(f"The decompressed file {output_file} already exists. Skipping decompression.")
+    else:
+        # Decompress the .lzma file
+        with lzma.open(input_lzma, 'rb') as f_in, open(output_file, 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+        print(f"File {input_lzma} has been successfully decompressed to {output_file}.")
+
+def read_pickle(file_path):
+    # Read the decompressed pickle file
+    with open(file_path, 'rb') as f:
+        data = pickle.load(f)
+    print("Pickle file read successfully.")
+    return data
+
+
 def recommend_movies(movie):
     movie_index = movies_df[movies_df['title'] == movie].index[0]
+    decompress_lzma(input_lzma="compressed_similarity_scores.pkl.gz", output_file="decompressed_similarity_scores.pkl")
+    similarity = read_pickle(file_path="decompressed_similarity_scores.pkl")
     distances = similarity[movie_index]
     movies_list = sorted(list(enumerate(distances)), reverse=True, key=lambda x: x[1])[1:9]
     recommended_movie_names = []
